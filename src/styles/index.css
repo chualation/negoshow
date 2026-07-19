@@ -1,3 +1,571 @@
 @import './fonts.css';
 @import './tailwind.css';
 @import './theme.css';
+
+@media (min-width: 768px) {
+  body { min-width: 768px; }
+
+  .admin-dashboard {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    gap: 24px;
+    padding: 0 32px 32px;
+  }
+
+  .admin-dashboard > :first-child {
+    grid-column: 1 / -1;
+    margin-left: -32px;
+    margin-right: -32px;
+  }
+
+  .admin-tabs {
+    grid-column: 1;
+    align-self: start;
+    position: sticky;
+    top: 92px;
+  }
+
+  .admin-tabs button {
+    justify-content: flex-start;
+    padding: 16px 18px;
+    border-bottom-width: 0;
+    border-left-width: 3px;
+  }
+
+  .admin-content {
+    grid-column: 2;
+    min-width: 0;
+  }
+}
+
+html, body, #root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  background: var(--background);
+}
+
+body { overflow-x: hidden; }
+
+.dashboard-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 28px;
+}
+
+.dashboard-section {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: rgba(255,255,255,.42);
+}
+
+@media (min-width: 1024px) {
+  .dashboard-content {
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);
+    align-items: start;
+    gap: 24px;
+  }
+
+  .dashboard-overview { grid-column: 1 / -1; }
+  .dashboard-variance { grid-column: 1; }
+  .dashboard-forecast { grid-column: 2; }
+  .dashboard-advisor { grid-column: 1 / -1; }
+  .dashboard-updated { grid-column: 1 / -1; }
+}
+
+.dashboard-procurement-cta { grid-column: 1 / -1; }
+
+.procurement-page { min-height: 100%; background: var(--background); }
+.procurement-hero { padding: 32px 40px 26px; border-bottom: 1px solid var(--border); display:flex; align-items:flex-end; justify-content:space-between; gap:24px; }
+.procurement-hero h1 { margin:4px 0 7px; font-size:30px; line-height:1.1; font-weight:800; color:var(--foreground); }
+.procurement-hero p { color:var(--muted-foreground); font-size:14px; }
+.procurement-eyebrow { font-size:11px!important; text-transform:uppercase; letter-spacing:.16em; font-weight:800; color:var(--primary)!important; }
+.procurement-date { display:flex; align-items:center; gap:7px; padding:10px 13px; border:1px solid var(--border); border-radius:12px; background:var(--card); color:var(--muted-foreground); font-size:12px; white-space:nowrap; }
+.procurement-tabs { padding:0 40px; display:flex; gap:24px; border-bottom:1px solid var(--border); background:var(--card); }
+.procurement-tabs button { padding:16px 2px 13px; border-bottom:3px solid transparent; color:var(--muted-foreground); font-size:13px; font-weight:700; }
+.procurement-tabs button.active { color:var(--primary); border-color:var(--primary); }
+.procurement-content { padding:28px 40px 44px; }
+.procurement-kpis { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; margin-bottom:22px; }
+.procurement-kpis > div { padding:20px; border:1px solid var(--border); border-radius:16px; background:var(--card); box-shadow:0 3px 14px rgba(20,50,20,.035); }
+.procurement-kpis span,.procurement-kpis small { display:block; color:var(--muted-foreground); font-size:11px; }
+.procurement-kpis strong { display:block; margin:5px 0 3px; font-size:25px; color:var(--foreground); }
+.procurement-grid { display:grid; grid-template-columns:minmax(0,1.65fr) minmax(300px,.75fr); gap:20px; align-items:start; }
+.procurement-panel { border:1px solid var(--border); border-radius:18px; background:var(--card); overflow:hidden; box-shadow:0 3px 14px rgba(20,50,20,.035); }
+.panel-heading { padding:20px 22px; border-bottom:1px solid var(--border); }
+.panel-heading h2 { font-size:16px; font-weight:800; color:var(--foreground); }
+.panel-heading p { margin-top:3px; font-size:12px; color:var(--muted-foreground); }
+.recommendation-row { width:100%; display:grid; grid-template-columns:minmax(170px,1.1fr) minmax(95px,.6fr) minmax(130px,.9fr) auto 22px; gap:16px; align-items:center; padding:17px 20px; border-bottom:1px solid var(--border); text-align:left; transition:.15s; }
+.recommendation-row:last-child { border-bottom:0; }
+.recommendation-row:hover { background:var(--muted); }
+.recommendation-row small { display:block; font-size:10px; color:var(--muted-foreground); margin-bottom:2px; }
+.recommendation-row strong { font-size:12px; color:var(--foreground); }
+.commodity-cell { display:flex; align-items:center; gap:11px; }
+.commodity-cell > span { font-size:24px; }
+.commodity-cell small { margin:1px 0 0; }
+.price-good { color:#16803c!important; }
+.action-pill { display:inline-flex; justify-content:center; padding:7px 10px; border-radius:999px; font-size:10px; font-weight:800; white-space:nowrap; }
+.action-pill.buy { background:#dcfce7; color:#16743a; }
+.action-pill.wait { background:#fff1d6; color:#a95208; }
+.procurement-tips { padding:7px 20px 13px; }
+.procurement-tips > div { display:flex; gap:11px; padding:15px 0; border-bottom:1px solid var(--border); }
+.procurement-tips > div:last-child { border-bottom:0; }
+.procurement-tips span { font-size:19px; }
+.procurement-tips strong { display:block; font-size:12px; color:var(--foreground); }
+.procurement-tips p { font-size:11px; color:var(--muted-foreground); line-height:1.55; margin-top:3px; }
+.price-table-wrap { overflow-x:auto; }
+.price-table { width:100%; border-collapse:collapse; min-width:850px; }
+.price-table th { padding:12px 20px; background:var(--muted); font-size:10px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted-foreground); text-align:left; }
+.price-table td { padding:17px 20px; border-top:1px solid var(--border); font-size:12px; color:var(--foreground); }
+.price-table td:first-child { display:flex; align-items:center; gap:9px; }
+.price-table td small { display:block; margin-top:2px; color:var(--muted-foreground); }
+.recommendation-cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+.recommendation-card { padding:22px; }
+.recommendation-card-top { display:flex; align-items:center; gap:12px; }
+.recommendation-card-top .commodity-icon { font-size:30px; }
+.recommendation-card-top h2 { font-size:16px; font-weight:800; }
+.recommendation-card-top p { font-size:11px; color:var(--muted-foreground); }
+.recommendation-card-top .action-pill { margin-left:auto; }
+.recommendation-reason { margin:17px 0; font-size:12px; line-height:1.6; color:var(--muted-foreground); }
+.recommendation-metrics { display:grid; grid-template-columns:1.2fr .8fr 1fr; gap:12px; padding:14px; border-radius:12px; background:var(--muted); }
+.recommendation-metrics small { display:block; font-size:9px; color:var(--muted-foreground); }
+.recommendation-metrics strong { display:block; font-size:11px; margin-top:3px; }
+.recommendation-card > button { margin-top:17px; display:flex; align-items:center; gap:5px; color:var(--primary); font-size:12px; font-weight:800; }
+
+@media (max-width: 900px) {
+  .procurement-hero { padding:24px 20px 20px; align-items:flex-start; flex-direction:column; }
+  .procurement-tabs { padding:0 20px; overflow-x:auto; }
+  .procurement-content { padding:20px 20px 100px; }
+  .procurement-kpis { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .procurement-grid,.recommendation-cards { grid-template-columns:1fr; }
+  .recommendation-row { grid-template-columns:minmax(150px,1fr) auto auto; }
+  .recommendation-row > div:nth-child(3),.recommendation-row > svg { display:none; }
+}
+@media (max-width: 520px) {
+  .procurement-hero h1 { font-size:24px; }
+  .procurement-date { white-space:normal; }
+  .procurement-kpis { grid-template-columns:1fr 1fr; gap:10px; }
+  .procurement-kpis > div { padding:15px; }
+  .procurement-kpis strong { font-size:20px; }
+  .recommendation-row { grid-template-columns:1fr auto; gap:10px; padding:15px; }
+  .recommendation-row > div:nth-child(2) { display:none; }
+  .recommendation-metrics { grid-template-columns:1fr; }
+}
+
+/* Smooth page, tab, hover, and click interactions */
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.page-transition, .tab-transition {
+  animation: pageEnter 280ms cubic-bezier(.22,.8,.3,1) both;
+}
+button, a, .procurement-panel, .dashboard-section, .procurement-kpis > div {
+  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease, border-color 180ms ease, color 180ms ease, opacity 180ms ease;
+}
+button:not(:disabled):active, a:active { transform: scale(.98); }
+@media (hover: hover) {
+  .procurement-panel:hover, .procurement-kpis > div:hover, .dashboard-section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(20,50,20,.07);
+  }
+  .recommendation-row:hover, .procurement-tabs button:hover, nav button:hover { transform: translateY(-1px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-transition, .tab-transition { animation: none; }
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}
+
+/* Consistent NegoShow scrollbars and refined motion */
+:root {
+  --scrollbar-track: color-mix(in srgb, var(--background) 88%, var(--border));
+  --scrollbar-thumb: color-mix(in srgb, var(--primary) 68%, #8a6c42);
+  --scrollbar-thumb-hover: color-mix(in srgb, var(--primary) 84%, #704f28);
+  --scrollbar-thumb-active: color-mix(in srgb, var(--primary) 92%, #4f351b);
+  --motion-fast: 220ms;
+  --motion-medium: 420ms;
+  --motion-slow: 620ms;
+  --motion-smooth: cubic-bezier(.22, 1, .36, 1);
+  --motion-soft: cubic-bezier(.16, 1, .3, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+body,
+#root,
+.price-table-wrap,
+.procurement-tabs,
+.admin-tabs,
+.admin-content,
+main,
+section,
+nav,
+div {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+/* Chromium, Edge, and Safari */
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  min-height: 44px;
+  border: 3px solid var(--scrollbar-track);
+  border-radius: 999px;
+  background: var(--scrollbar-thumb);
+  background-clip: padding-box;
+  transition: background-color var(--motion-fast) ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: var(--scrollbar-thumb-active);
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--scrollbar-track);
+}
+
+/* Horizontal scroll areas are slimmer and less visually dominant. */
+.price-table-wrap::-webkit-scrollbar,
+.procurement-tabs::-webkit-scrollbar {
+  height: 8px;
+}
+
+.price-table-wrap,
+.procurement-tabs {
+  overscroll-behavior-inline: contain;
+}
+
+@keyframes pageEnterSmooth {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0) scale(.995);
+    filter: blur(2px);
+  }
+  55% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes tabEnterSmooth {
+  0% {
+    opacity: 0;
+    transform: translate3d(10px, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.page-transition {
+  animation: pageEnterSmooth var(--motion-slow) var(--motion-smooth) both;
+  transform-origin: center top;
+  will-change: opacity, transform, filter;
+}
+
+.tab-transition {
+  animation: tabEnterSmooth var(--motion-medium) var(--motion-smooth) both;
+  will-change: opacity, transform;
+}
+
+button,
+a,
+[role='button'],
+.procurement-panel,
+.dashboard-section,
+.procurement-kpis > div,
+.recommendation-card,
+.recommendation-row,
+.price-table tbody tr,
+input,
+select,
+textarea {
+  transition:
+    transform var(--motion-medium) var(--motion-smooth),
+    box-shadow var(--motion-medium) var(--motion-soft),
+    background-color var(--motion-medium) ease,
+    border-color var(--motion-medium) ease,
+    color var(--motion-fast) ease,
+    opacity var(--motion-fast) ease;
+}
+
+button:not(:disabled):active,
+a:active,
+[role='button']:active {
+  transform: translateY(1px) scale(.985);
+  transition-duration: 100ms;
+}
+
+@media (hover: hover) {
+  button:not(:disabled):hover,
+  a:hover,
+  [role='button']:hover {
+    transform: translateY(-2px);
+  }
+
+  .procurement-panel:hover,
+  .procurement-kpis > div:hover,
+  .dashboard-section:hover,
+  .recommendation-card:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--primary) 24%, var(--border));
+    box-shadow: 0 16px 38px rgba(20, 50, 20, .09);
+  }
+
+  .recommendation-row:hover,
+  .price-table tbody tr:hover {
+    transform: translateX(3px);
+    background: color-mix(in srgb, var(--muted) 84%, var(--primary) 4%);
+  }
+
+  .procurement-tabs button:hover,
+  nav button:hover {
+    transform: translateY(-2px);
+  }
+}
+
+button:focus-visible,
+a:focus-visible,
+[role='button']:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--primary) 38%, transparent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .page-transition,
+  .tab-transition {
+    animation: none !important;
+    filter: none !important;
+  }
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+
+/* Viewport and navigation stability fixes */
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  overflow: hidden;
+  background: var(--background) !important;
+}
+
+body {
+  min-width: 0 !important;
+}
+
+.app-root,
+.app-shell {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  background: var(--background);
+}
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.app-main {
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  background: var(--background);
+}
+
+.app-main > .page-transition {
+  width: 100%;
+  min-width: 0;
+  min-height: 100%;
+  overflow-x: clip;
+  background: var(--background);
+}
+
+/* Keep route changes inside the content bounds so temporary scrollbars do not flash. */
+@keyframes pageEnterStable {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 6px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes tabEnterStable {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 4px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.page-transition {
+  animation: pageEnterStable 440ms cubic-bezier(.16, 1, .3, 1) both !important;
+  filter: none !important;
+  transform-origin: top center;
+  will-change: opacity, transform;
+}
+
+.tab-transition {
+  animation: tabEnterStable 360ms cubic-bezier(.16, 1, .3, 1) both !important;
+  overflow-x: clip;
+  filter: none !important;
+}
+
+/* Only actual data regions may scroll horizontally. */
+.price-table-wrap {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.procurement-page,
+.dashboard-content,
+.dashboard-section,
+.procurement-content,
+.procurement-grid,
+.procurement-panel {
+  max-width: 100%;
+  min-width: 0;
+}
+
+/* Prevent hover movement from creating horizontal overflow near viewport edges. */
+@media (hover: hover) {
+  .recommendation-row:hover,
+  .price-table tbody tr:hover {
+    transform: translateY(-1px) !important;
+  }
+}
+
+@media (max-width: 767px) {
+  html,
+  body,
+  #root,
+  .app-root,
+  .app-shell,
+  .app-main {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+
+/* Home hero: Filipino vendor photo with a readable green overlay */
+.home-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 330px;
+  display: flex;
+  align-items: center;
+  background: #123f22;
+}
+
+.home-hero::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  z-index: -2;
+  background-image: url("/images/filipino-vendors.webp");
+  background-size: cover;
+  background-position: center 43%;
+  background-repeat: no-repeat;
+  filter: blur(1.5px);
+  transform: scale(1.07);
+  animation: homeHeroZoom 18s cubic-bezier(.22, 1, .36, 1) both;
+}
+
+.home-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(7, 54, 25, .88) 0%, rgba(9, 62, 29, .72) 48%, rgba(8, 47, 23, .45) 100%),
+    linear-gradient(0deg, rgba(3, 30, 14, .22), rgba(3, 30, 14, .08));
+}
+
+.home-hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes homeHeroZoom {
+  from { transform: scale(1.07); }
+  to { transform: scale(1.015); }
+}
+
+@media (min-width: 768px) {
+  .home-hero {
+    min-height: 380px;
+    padding-left: 44px;
+    padding-right: 44px;
+  }
+}
+
+@media (max-width: 640px) {
+  .home-hero::before {
+    background-position: 58% center;
+  }
+
+  .home-hero::after {
+    background: linear-gradient(90deg, rgba(7, 54, 25, .9), rgba(8, 52, 25, .66));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-hero::before { animation: none; transform: scale(1.02); }
+}

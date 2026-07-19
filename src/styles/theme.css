@@ -179,3 +179,95 @@
     line-height: 1.5;
   }
 }
+
+/* ─── NegoShow unified frontend polish ───────────────────────────────────── */
+:root {
+  --surface-soft: #f5f2ea;
+  --surface-raised: #ffffff;
+  --primary-hover: #0f3710;
+  --accent-warm: #e58a24;
+  --radius-control: 12px;
+  --radius-card: 16px;
+  --radius-section: 20px;
+  --shadow-soft: 0 4px 18px rgba(21, 66, 18, 0.07);
+  --shadow-hover: 0 12px 30px rgba(21, 66, 18, 0.12);
+  --ease-smooth: cubic-bezier(.22, 1, .36, 1);
+}
+
+html { scroll-behavior: smooth; scrollbar-gutter: stable; }
+html, body, #root { min-height: 100%; width: 100%; margin: 0; }
+body { overflow-x: hidden; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
+::selection { background: color-mix(in srgb, var(--primary) 22%, transparent); }
+
+* { scrollbar-width: thin; scrollbar-color: #4a8c40 #eee9df; }
+*::-webkit-scrollbar { width: 11px; height: 9px; }
+*::-webkit-scrollbar-track { background: #eee9df; }
+*::-webkit-scrollbar-thumb { background: #4a8c40; border: 3px solid #eee9df; border-radius: 999px; }
+*::-webkit-scrollbar-thumb:hover { background: #2f702e; }
+
+.app-root, .app-shell { min-height: 100vh; width: 100%; }
+.app-main { min-height: calc(100vh - 80px); overflow-x: clip; }
+.page-transition { animation: page-enter 360ms var(--ease-smooth) both; }
+@keyframes page-enter { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Consistent interactive feedback */
+button, a, input, select, textarea { transition: border-color 200ms ease, background-color 200ms ease, color 200ms ease, box-shadow 240ms var(--ease-smooth), transform 200ms var(--ease-smooth), opacity 200ms ease; }
+button:not(:disabled) { cursor: pointer; }
+button:not(:disabled):active { transform: scale(.985); }
+button:disabled { cursor: not-allowed; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--ring) 34%, transparent);
+  outline-offset: 2px;
+}
+
+/* Cards, panels and tables */
+.bg-card.border, section .border.bg-card, article.border.bg-card {
+  box-shadow: var(--shadow-soft);
+}
+@media (hover:hover) {
+  button.bg-card:hover, article.bg-card:hover, .dashboard-section > .bg-card:hover {
+    border-color: color-mix(in srgb, var(--primary) 28%, transparent);
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+  }
+  nav button:hover { transform: translateY(-1px); }
+}
+
+.dashboard-content { width: min(100%, 1500px); margin-inline: auto; }
+.dashboard-section { margin-bottom: 36px; }
+.dashboard-section > p:first-child { margin-bottom: 12px; }
+.dashboard-overview > .grid:first-of-type { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; }
+@media (min-width: 1100px) { .dashboard-overview > .grid:first-of-type { grid-template-columns: repeat(4, minmax(0,1fr)); } }
+
+/* Commodity selection becomes a desktop grid while remaining touch friendly. */
+.commodity-picker-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+@media (min-width: 700px) { .commodity-picker-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; } }
+@media (min-width: 1200px) { .commodity-picker-grid { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+.commodity-picker-grid > button { min-height: 76px; border-radius: var(--radius-card); }
+
+/* Form rhythm and clarity */
+input, select, textarea { min-height: 44px; }
+label { color: var(--foreground); }
+input[aria-invalid="true"] { box-shadow: 0 0 0 3px rgba(220,38,38,.10); }
+
+/* Keep dense data readable and stop the body from horizontally scrolling. */
+.recharts-responsive-container { min-width: 0; }
+table { border-collapse: separate; border-spacing: 0; }
+th { position: sticky; top: 0; z-index: 2; background: var(--muted); }
+td, th { vertical-align: middle; }
+
+/* Hero readability */
+.home-hero { min-height: 390px; display: flex; align-items: center; }
+.home-hero::after { background: linear-gradient(90deg, rgba(8,44,17,.88) 0%, rgba(11,57,21,.72) 48%, rgba(11,57,21,.42) 100%); }
+.home-hero p { max-width: 620px; }
+
+/* Bottom nav must never cover the last item. */
+@media (max-width: 767px) { .app-main { padding-bottom: calc(88px + env(safe-area-inset-bottom)); } }
+
+/* Loading/error/success animation helpers already used by the app. */
+.animate-pulse { animation-duration: 1.8s; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
